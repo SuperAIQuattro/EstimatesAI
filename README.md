@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Estimates AI](#estimates-ai)
-  - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Architecture Overview](#architecture-overview)
   - [Main Components](#main-components)
