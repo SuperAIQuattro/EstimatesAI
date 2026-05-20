@@ -208,7 +208,7 @@ The output may include:
 
 ### Python
 
-- python
+- Python >=3.11  
 
 ### Datapizza-AI
 
