@@ -89,8 +89,6 @@ flowchart TD
     MODELS --> OPENAI[OpenAI]
     MODELS --> GOOGLE[Google]
     MODELS --> ANTHROPIC[Anthropic]
-
-    API --> STORAGE[(PostgreSQL)]
 ```
 
 ## Main Components
@@ -201,7 +199,6 @@ The output may include:
 
 - Docker
 - Redis
-- PostgreSQL
 
 ## Dependencies
 
