@@ -4,6 +4,9 @@
 
 - [Estimates AI](#estimates-ai)
   - [Description](#description)
+  - [Stakeholders \& ROI](#stakeholders--roi)
+    - [Stakeholders](#stakeholders)
+    - [ROI](#roi)
   - [Architecture Overview](#architecture-overview)
   - [Main Components](#main-components)
     - [AI Orchestrator](#ai-orchestrator)
@@ -13,16 +16,11 @@
       - [Includes](#includes)
     - [Tracing \& Observability](#tracing--observability)
   - [Estimation Logic](#estimation-logic)
-  - [Tech Stack](#tech-stack)
-    - [Backend](#backend)
-    - [AI Framework](#ai-framework)
-    - [Tracing \& Monitoring](#tracing--monitoring)
-    - [Infrastructure](#infrastructure)
   - [Dependencies](#dependencies)
-    - [Python](#python)
+    - [Backend](#backend)
     - [Datapizza-AI](#datapizza-ai)
-    - [Context Tracing](#context-tracing)
-    - [Other](#other)
+    - [Tracing \& Monitoring](#tracing--monitoring)
+    - [Docker](#docker)
   - [Configuration](#configuration)
     - [Running Streamlit](#running-streamlit)
   - [Future Improvements](#future-improvements)
@@ -52,6 +50,38 @@ The estimation process is based on multiple contextual factors, including:
 - historical organizational knowledge.
 
 The goal of the project is not only to estimate tasks, but also to provide explainable AI-assisted planning and operational decision support.
+
+## Stakeholders & ROI
+
+### Stakeholders
+
+Here is a list of potential stakeholders and their related interests.
+
+- CEO / Founder: marginality, speed of delivery, cost forecast.
+- CTO: governance technique.
+- Project Manager: distribution task, sprint planning, dependencies, risk assessment.
+- Tech Lead / Engineering Manager: skill gap identification, stack choice, realistic technical effort.
+- Development team: clearer tasks, lower scheduling overhead, automatic documentation.
+- QA / Test Manager: estimate effort testing, coverage, QA automation.
+- Final customers: cost transparency, roadmap, realistic times.
+
+### ROI
+
+Here is a possible return on investment, in terms of time and money.
+
+Analysis and planning phase: 
+- 20–50% reduction in planning time;
+- 15–30% PM/Lead effort reduction;
+- 10–25% less rework from poorly defined tasks.
+
+Software development phase:
+- 30–60% reduction in pre-sales time;
+- 20–40% best accuracy estimates;
+- commercial win-rate increase.
+
+Process management phase:
+- 10–30% operational improvement;
+- especially in multi-team companies.
 
 ## Architecture Overview
 
@@ -169,42 +199,14 @@ The output may include:
 - suggested team composition;
 - possible bottlenecks.
 
-## Tech Stack
+## Dependencies
 
 ### Backend
 
-- Python
-- Streamlit
-- Pydantic
-- Pandas
-
-### AI Framework
-
-- datapizza-ai
-- datapizza-ai-clients-openai
-- datapizza-ai-clients-openai-like
-- datapizza-ai-clients-google
-- datapizza-ai.clients.anthropic
-- datapizza-ai-cache-redis
-
-### Tracing & Monitoring
-
-- opentelemetry-sdk
-- opentelemetry-exporter-otlp-proto-grpc
-- opentelemetry-exporter-prometheus
-- prometheus-client
-- grafana
-
-### Infrastructure
-
-- Docker
-- Redis
-
-## Dependencies
-
-### Python
-
-- Python >=3.11  
+- `python-dotenv`
+- `pandas`
+- `pydantic`
+- `streamlit`
 
 ### Datapizza-AI
 
@@ -215,7 +217,7 @@ The output may include:
 - `datapizza-ai.clients.anthropic`
 - `datapizza-ai-cache-redis`
 
-### Context Tracing
+### Tracing & Monitoring
 
 - `opentelemetry-sdk`
 - `opentelemetry-exporter-otlp-proto-grpc`
@@ -223,16 +225,13 @@ The output may include:
 - `prometheus-client`
 - `grafana`
 
-### Other
+### Docker
 
-- `pandas`
-- `python-dotenv`
-- `pydantic`
-- `streamlit`
+- Docker
 
 ## Configuration
 
-1. Install Python on your machine.
+1. Install Python >=3.11 on your machine.
 
 2. Create the `.env` file in the root directory based on `.env.example`.
 
@@ -242,7 +241,7 @@ The output may include:
 
 3. Search and install the Jupyter extension in Visual Studio Code.It is used to execute Python code blocks interactively.
 
-4. Build and run the application:
+4. Install Docker, build and run the application:
 
     ```bash
     docker compose up --build
