@@ -4,7 +4,7 @@ from opentelemetry.trace import StatusCode
 from estimates_ai.observability.tracing import tracer
 from estimates_ai.llm.client_factory import default_client as client
 
-from estimates_ai.schemas.task import Activity
+from estimates_ai.schemas.task_decomposition import Activity
 from estimates_ai.schemas.team_allocation import Team
 
 import time
@@ -27,9 +27,20 @@ def team_allocation(activity: Activity) -> Team:
         with tracer.start_as_current_span("team_allocation") as span:
             try:
                 result = client.structured_response(
-                    input="""Data la seguente attività, allocare un team adatto a svolgerla. L'attività è descritta da un nome e una descrizione. Il team allocato deve essere descritto da un nome, una lista di membri e un tipo (ad esempio, "sviluppo", "design", "marketing", "frontend", "backend", ecc.).""",
+                    input=f"""
+                    Data la seguente attività, allocare un team adatto a svolgerla.
+                    L'attività è descritta da un nome e una descrizione.
+                    Il team allocato deve essere descritto da un nome, una lista di membri e un tipo (ad esempio, "sviluppo", "design", "marketing", "frontend", "backend", ecc.).
+
+                    L'attività da allocare è la seguente:
+                    - Nome: {activity.name}
+                    - Descrizione: {activity.description}
+                    """,
                     output_cls=Team,
-                    system_prompt="""Sei un assistente che aiuta a allocare team per attività specifiche. Riceverai una descrizione dell'attività e dovrai rispondere con un team adatto a svolgerla.""",
+                    system_prompt="""
+                    Sei un assistente che aiuta a allocare team per attività specifiche.
+                    Riceverai una descrizione dell'attività e dovrai rispondere con un team adatto a svolgerla.
+                    """,
                     temperature=0.7
                 )
 
