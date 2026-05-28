@@ -1,12 +1,11 @@
-from typing import List
+import time
 
 from datapizza.tools import tool
 from datapizza.tracing import ContextTracing
 from opentelemetry.trace import StatusCode
-
+from estimates_ai.observability.tracing import tracer
 from estimates_ai.llm.client_factory import default_client as client
 
-import time
 
 from estimates_ai.schemas.tech_advisor import TechAdvisorStructuredResponse
 
@@ -35,8 +34,9 @@ def tech_advisor(query: str) -> str:
     """Tech Advisor: Provides feedback related to tech stack."""
     t0 = time.perf_counter()
 
+    print(f"Analyzing Tech Stack")
     with ContextTracing().trace("tech_advisor"):
-        with client.tracer.start_as_current_span("tech_advisor") as span:
+        with tracer.start_as_current_span("tech_advisor") as span:
             try:
                 result = client.structured_response(
                     input=query,
