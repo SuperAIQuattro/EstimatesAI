@@ -100,9 +100,6 @@ flowchart TD
     TOOLS --> STAFFING[Team Allocation]
     TOOLS --> RISK[Risk Analysis]
 
-    MEMORY --> HISTORY[Historical Tasks]
-    MEMORY --> ORG[Organizational Knowledge]
-
     TRACE --> OTEL[OpenTelemetry]
     OTEL --> PROM[Prometheus]
     PROM --> GRAFANA[Grafana Dashboards]
@@ -110,8 +107,6 @@ flowchart TD
     API --> MODELS[LLM Providers]
 
     MODELS --> OPENAI[OpenAI]
-    MODELS --> GOOGLE[Google]
-    MODELS --> ANTHROPIC[Anthropic]
 ```
 
 ## Main Components
@@ -240,9 +235,6 @@ flowchart LR
 
 - `datapizza-ai`
 - `datapizza-ai-clients-openai`
-- `datapizza-ai-clients-openai-like`
-- `datapizza-ai-clients-google`
-- `datapizza-ai.clients.anthropic`
 - `datapizza-ai-cache-redis`
 
 ### Tracing & Monitoring
@@ -285,6 +277,7 @@ flowchart LR
 
 ## Future Improvements
 
+- selectable AI provider;
 - memory caching with Redis;
 - multi-agent orchestration;
 - AI-assisted sprint planning;
