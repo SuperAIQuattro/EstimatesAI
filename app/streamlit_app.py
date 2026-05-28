@@ -31,9 +31,6 @@ if "token_output" not in st.session_state:
 if "cost" not in st.session_state:
     st.session_state["cost"] = 0.0
 
-if "activity_type" not in st.session_state:
-    st.session_state["activity_type"] = ""
-
 if "system" not in st.session_state:
     st.session_state["system"] = (
         "Sei il team leader di un team di sviluppo software. "

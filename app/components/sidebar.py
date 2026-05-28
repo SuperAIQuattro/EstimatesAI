@@ -23,7 +23,6 @@ def render_sidebar() -> tuple[str, float]:
             st.session_state["token_output"] = 0
             st.session_state["memory"] = Memory()
             st.session_state["cost"] = 0.0
-            st.session_state["activity_type"] = ""
             st.rerun()
 
         history_text = "\n".join(f"[{m['role']}] {m['content']}" for m in st.session_state["history"])
@@ -40,11 +39,6 @@ def render_sidebar() -> tuple[str, float]:
             '<div style="text-align:center;"><a href="http://localhost:3000" target="_blank">Apri Grafana</a></div>',
             unsafe_allow_html=True,
         )
-
-        st.divider()
-
-        valore = st.session_state["activity_type"] or "-"
-        _render_card("Tipo di attività", valore)
 
         st.divider()
 
