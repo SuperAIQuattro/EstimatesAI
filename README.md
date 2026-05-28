@@ -13,8 +13,6 @@
     - [AI Orchestrator](#ai-orchestrator)
     - [Tool Engine](#tool-engine)
       - [Available tools](#available-tools)
-    - [Memory Layer](#memory-layer)
-      - [Includes](#includes)
     - [Tracing \& Observability](#tracing--observability)
   - [Estimation Logic](#estimation-logic)
   - [Workflow](#workflow)
@@ -24,7 +22,6 @@
     - [Datapizza-AI](#datapizza-ai)
     - [Tracing \& Monitoring](#tracing--monitoring)
   - [Configuration](#configuration)
-    - [Running Streamlit](#running-streamlit)
   - [Future Improvements](#future-improvements)
   - [Vision](#vision)
 
@@ -95,7 +92,6 @@ flowchart TD
     UI --> API
 
     API --> TOOLS[Tool Engine]
-    API --> MEMORY[Memory Layer]
     API --> TRACE[Tracing Layer]
 
     TOOLS --> ESTIMATION[Estimation]
@@ -104,15 +100,12 @@ flowchart TD
     TOOLS --> STAFFING[Team Allocation]
     TOOLS --> RISK[Risk Analysis]
 
-    MEMORY --> STM[Short Term Context Memory]
     MEMORY --> HISTORY[Historical Tasks]
     MEMORY --> ORG[Organizational Knowledge]
 
     TRACE --> OTEL[OpenTelemetry]
     OTEL --> PROM[Prometheus]
     PROM --> GRAFANA[Grafana Dashboards]
-
-    API <--> REDIS[(Redis Cache)]
 
     API --> MODELS[LLM Providers]
 
@@ -127,7 +120,6 @@ flowchart TD
 
 Coordinates the entire workflow:
 - tool execution;
-- memory retrieval;
 - tracing and observability.
 
 ### Tool Engine
@@ -141,16 +133,6 @@ Responsible for specialized AI operations.
 - Team allocation tool
 - Risk analysis tool
 - Tech stack advisor tool
-
-### Memory Layer
-
-Stores organizational and semantic knowledge.
-
-#### Includes
-
-- short-term contextual memory;
-- historical project memory;
-- organizational knowledge base.
 
 ### Tracing & Observability
 
@@ -194,7 +176,7 @@ The output may include:
 
 ## Workflow
 
-Starting from a project idea, the engine analyzes the input and retrieves contextual information from the memory layer and historical knowledge base.
+Starting from a project idea, the engine analyzes the input.
 
 The request is then decomposed into smaller tasks, which are independently analyzed to estimate complexity, implementation time, risks, dependencies, and required team roles. During the process, the engine may also suggest architectural solutions and alternative tech stacks.
 
@@ -218,7 +200,6 @@ flowchart LR
 
     INPUT --> ORCH[AI Orchestrator]
 
-    ORCH --> MEMORY[Memory & Historical Context]
     ORCH --> TOOLS[AI Tools Engine]
 
     TOOLS --> DECOMP[Task Decomposition]
@@ -304,6 +285,7 @@ flowchart LR
 
 ## Future Improvements
 
+- memory caching with Redis;
 - multi-agent orchestration;
 - AI-assisted sprint planning;
 - automatic Jira/Teams Task integration;
@@ -318,7 +300,6 @@ flowchart LR
 The long-term vision of the project is to create an AI-native operational intelligence platform capable of combining:
 - planning;
 - estimation;
-- organizational memory;
 - workflow orchestration;
 
 The system aims to become an intelligent layer between business requirements and technical execution.
