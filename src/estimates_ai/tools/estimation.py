@@ -2,7 +2,7 @@ from datapizza.tools import tool
 
 from estimates_ai.llm.client_factory import default_client as client
 from estimates_ai.schemas.estimation import EstimationResult
-from estimates_ai.schemas.task import Activity
+from estimates_ai.schemas.task_decomposition import Activity
 
 
 # ── Tool ─────────────────────────────────────────────────────────────────────
