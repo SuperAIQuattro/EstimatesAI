@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Estimates AI](#estimates-ai)
+  - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Stakeholders \& ROI](#stakeholders--roi)
     - [Stakeholders](#stakeholders)
@@ -16,11 +17,12 @@
       - [Includes](#includes)
     - [Tracing \& Observability](#tracing--observability)
   - [Estimation Logic](#estimation-logic)
+  - [Workflow](#workflow)
   - [Dependencies](#dependencies)
-    - [Backend](#backend)
+    - [Core](#core)
+    - [GUI](#gui)
     - [Datapizza-AI](#datapizza-ai)
     - [Tracing \& Monitoring](#tracing--monitoring)
-    - [Docker](#docker)
   - [Configuration](#configuration)
     - [Running Streamlit](#running-streamlit)
   - [Future Improvements](#future-improvements)
@@ -30,20 +32,17 @@
 
 Estimates AI is an AI-powered project intelligence and task estimation system designed to help teams quantify the human effort required to start and complete a task.
 
-The platform analyzes project requirements and generates structured insights such as:
-
+The platform analyzes project requirements and generates structured insights by using tools able to do:
 - task decomposition;
 - workload estimation;
 - team allocation;
 - architectural suggestions;
 - risk analysis;
-- dependency mapping;
-- historical project comparisons.
+- dependency mapping.
 
 The estimation process is based on multiple contextual factors, including:
 
 - activity type (`feature`, `bugfix`, `chore`, `refactor`);
-- number of files or impacted areas;
 - integrations with external services;
 - technical complexity;
 - team composition and skill distribution;
@@ -69,7 +68,7 @@ Here is a list of potential stakeholders and their related interests.
 
 Here is a possible return on investment, in terms of time and money.
 
-Analysis and planning phase: 
+Analysis and planning phase:
 - 20–50% reduction in planning time;
 - 15–30% PM/Lead effort reduction;
 - 10–25% less rework from poorly defined tasks.
@@ -99,12 +98,13 @@ flowchart TD
     API --> MEMORY[Memory Layer]
     API --> TRACE[Tracing Layer]
 
-    TOOLS --> ESTIMATION[Estimation AI]
-    TOOLS --> PLANNING[Planning AI]
+    TOOLS --> ESTIMATION[Estimation]
+    TOOLS --> DECOMPOSITION[Task Decomposition]
+    TOOLS --> TECHADVISOR[Tech Stack Advisor]
     TOOLS --> STAFFING[Team Allocation]
     TOOLS --> RISK[Risk Analysis]
 
-    MEMORY --> VECTOR[Semantic Vector Memory]
+    MEMORY --> STM[Short Term Context Memory]
     MEMORY --> HISTORY[Historical Tasks]
     MEMORY --> ORG[Organizational Knowledge]
 
@@ -112,7 +112,7 @@ flowchart TD
     OTEL --> PROM[Prometheus]
     PROM --> GRAFANA[Grafana Dashboards]
 
-    API --> REDIS[(Redis Cache)]
+    API <--> REDIS[(Redis Cache)]
 
     API --> MODELS[LLM Providers]
 
@@ -126,7 +126,6 @@ flowchart TD
 ### AI Orchestrator
 
 Coordinates the entire workflow:
-- prompt routing;
 - tool execution;
 - memory retrieval;
 - estimation pipelines;
@@ -142,10 +141,7 @@ Responsible for specialized AI operations.
 - Estimation tool
 - Team allocation tool
 - Risk analysis tool
-- Dependency analyzer
-- Tech stack advisor
-- Historical similarity search
-- Documentation generator
+- Tech stack advisor tool
 
 ### Memory Layer
 
@@ -154,7 +150,6 @@ Stores organizational and semantic knowledge.
 #### Includes
 
 - short-term contextual memory;
-- semantic vector memory;
 - historical project memory;
 - organizational knowledge base.
 
@@ -189,7 +184,6 @@ The estimation engine evaluates:
 - impacted modules;
 - architectural dependencies;
 - external integrations;
-- historical similarities;
 - team capacity.
 
 The output may include:
@@ -199,13 +193,67 @@ The output may include:
 - suggested team composition;
 - possible bottlenecks.
 
+## Workflow
+
+Starting from a project idea, the engine analyzes the input and retrieves contextual information from the memory layer and historical knowledge base.
+
+The request is then decomposed into smaller tasks, which are independently analyzed to estimate complexity, implementation time, risks, dependencies, and required team roles. During the process, the engine may also suggest architectural solutions and alternative tech stacks.
+
+All operations are traced through the observability layer in order to provide explainability, monitoring, and performance insights.
+
+The final output is a complete project analysis containing:
+
+- task decomposition;
+- workload estimation;
+- team allocation;
+- risk assessment;
+- architectural recommendations;
+- delivery bottlenecks.
+
+```mermaid
+flowchart LR
+
+    subgraph IN["**INPUT**"]
+        INPUT[Project Idea / Requirement]
+    end
+
+    INPUT --> ORCH[AI Orchestrator]
+
+    ORCH --> MEMORY[Memory & Historical Context]
+    ORCH --> TOOLS[AI Tools Engine]
+
+    TOOLS --> DECOMP[Task Decomposition]
+    TOOLS --> EST[Estimation]
+    TOOLS --> STAFF[Team Allocation]
+    TOOLS --> RISK[Risk Analysis]
+    TOOLS --> TECH[Tech Stack Advisor]
+
+    ORCH --> TRACE[Tracing & Observability]
+
+    TRACE --> OTEL[OpenTelemetry]
+    OTEL --> PROM[Prometheus]
+    PROM --> GRAFANA[Grafana]
+
+    subgraph OUT["**OUTPUT**"]
+        OUTPUT[Final Project Analysis]
+    end
+
+    DECOMP --> OUTPUT
+    EST --> OUTPUT
+    STAFF --> OUTPUT
+    RISK --> OUTPUT
+    TECH --> OUTPUT
+```
+
 ## Dependencies
 
-### Backend
+### Core
 
 - `python-dotenv`
 - `pandas`
 - `pydantic`
+
+### GUI
 - `streamlit`
 
 ### Datapizza-AI
@@ -225,13 +273,9 @@ The output may include:
 - `prometheus-client`
 - `grafana`
 
-### Docker
-
-- Docker
-
 ## Configuration
 
-1. Install Python >=3.11 on your machine.
+1. Install [Python >=3.11](https://www.python.org/downloads/) on your machine.
 
 2. Create the `.env` file in the root directory based on `.env.example`.
 
@@ -241,7 +285,7 @@ The output may include:
 
 3. Search and install the Jupyter extension in Visual Studio Code.It is used to execute Python code blocks interactively.
 
-4. Install Docker, build and run the application:
+4. Install [Docker](https://docs.docker.com/engine/install/), build and run the application:
 
     ```bash
     docker compose up --build
@@ -258,11 +302,11 @@ streamlit run nome_file_creato.py
 ## Future Improvements
 
 - multi-agent orchestration;
-- predictive delivery forecasting;
 - AI-assisted sprint planning;
-- automatic Jira/Azure DevOps integration;
+- automatic Jira/Teams Task integration;
 - graph-based dependency analysis;
-- organizational learning loops;
+- historical comparison between similar projects;
+- generation of documentation for each specific team (e.g. technical docs vs functional docs);
 - cost optimization recommendations;
 - autonomous project simulations.
 
@@ -273,7 +317,5 @@ The long-term vision of the project is to create an AI-native operational intell
 - estimation;
 - organizational memory;
 - workflow orchestration;
-- decision support;
-- explainable AI.
 
 The system aims to become an intelligent layer between business requirements and technical execution.
