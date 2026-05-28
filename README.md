@@ -276,6 +276,12 @@ flowchart LR
 
 1. Install [Python >=3.11](https://www.python.org/downloads/) on your machine.
 
+    After installing Python, synchronize the project dependencies with [uv](https://github.com/astral-sh/uv):
+
+    ```bash
+    uv sync
+    ```
+
 2. Create the `.env` file in the root directory based on `.env.example`.
 
     ```bash
@@ -290,13 +296,11 @@ flowchart LR
     docker compose up --build
     ```
 
-### Running Streamlit
+5. Run this command to start
 
-If using Streamlit:
-
-```bash
-streamlit run nome_file_creato.py
-```
+    ```bash
+    uv run main.py
+    ```
 
 ## Future Improvements
 
