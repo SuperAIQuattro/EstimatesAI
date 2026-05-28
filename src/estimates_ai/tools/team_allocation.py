@@ -4,9 +4,10 @@ from opentelemetry.trace import StatusCode
 from main import tracer
 from estimates_ai.llm.client_factory import default_client as client
 
-import time
+from estimates_ai.schemas.task import Activity
+from estimates_ai.schemas.team_allocation import Team
 
-from estimates_ai.schemas.models import Activity, Team
+import time
 
 @tool
 def team_allocation(activity: Activity) -> Team:
