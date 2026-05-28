@@ -1,0 +1,39 @@
+apiVersion: 1
+
+datasources:
+
+  # ── Grafana Tempo — trace ───────────────────────────────────────────────────
+  - name: Tempo
+    type: tempo
+    access: proxy
+    url: http://tempo:3200
+    uid: tempo
+    isDefault: false
+    jsonData:
+      httpMethod: GET
+      tracesToLogsV2:
+        datasourceUid: ""
+      serviceMap:
+        datasourceUid: prometheus
+      nodeGraph:
+        enabled: true
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: "1h"
+        spanEndTimeShift: "-1h"
+      spanBar:
+        type: "Tag"
+        tag: "http.path"
+
+  # ── Prometheus — metriche ───────────────────────────────────────────────────
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    uid: prometheus
+    isDefault: true
+    jsonData:
+      httpMethod: POST
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: tempo

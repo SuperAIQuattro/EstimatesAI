@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+# Abilita remote_write endpoint (usato da Tempo metrics generator)
+remote_write: []
+
+scrape_configs:
+
+  # ── Metriche Python esposte dai notebook ───────────────────────────────────
+  # Il notebook avvia un server Prometheus su :8000 con start_http_server()
+  # Aggiungi qui l'IP della tua macchina se Prometheus gira in Docker
+  - job_name: "aitho_llm_app"
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
+    metrics_path: "/metrics"
+
+  # ── Metriche Python del Capstone agent ─────────────────────────────────────
+  - job_name: "aitho_agent_capstone"
+    static_configs:
+      - targets: ["host.docker.internal:8001"]
+    metrics_path: "/metrics"
+
+  # ── Metriche interne di Prometheus stesso ──────────────────────────────────
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # ── Metriche interne di Tempo ──────────────────────────────────────────────
+  - job_name: "tempo"
+    static_configs:
+      - targets: ["tempo:3200"]
+    metrics_path: "/metrics"
