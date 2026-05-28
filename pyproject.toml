@@ -1,0 +1,18 @@
+[project]
+name = "estimatesai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "datapizza-ai>=0.1.0",
+    "datapizza-ai-cache-redis>=0.0.5",
+    "datapizza-ai-clients-openai>=0.0.13",
+    "opentelemetry-exporter-otlp-proto-grpc>=1.42.1",
+    "opentelemetry-exporter-prometheus>=0.63b1",
+    "opentelemetry-sdk>=1.42.1",
+    "prometheus-client>=0.25.0",
+    "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
+    "streamlit>=1.57.0",
+]
