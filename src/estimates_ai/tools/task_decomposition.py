@@ -1,6 +1,5 @@
 from datapizza.tools import tool
 from datapizza.tracing import ContextTracing
-from opentelemetry.trace import StatusCode
 from estimates_ai.observability.tracing import set_attributes_and_status, set_exception
 from estimates_ai.observability.tracing import tracer
 from estimates_ai.llm.client_factory import default_client as client
