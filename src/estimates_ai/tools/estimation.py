@@ -43,4 +43,11 @@ def estimate_activity(query: str) -> str:
                 latency = time.perf_counter() - t0
                 set_exception(span, e, latency)
                 raise
-            return result.structured_data[0].model_dump_json(indent=2)
+            analisi = result.structured_data[0]
+            try:
+                import streamlit as st
+                st.session_state["total_hours"] = st.session_state.get("total_hours", 0.0) + analisi.total_estimated_hours
+                st.session_state["risk_level"] = analisi.risk_level
+            except Exception:
+                pass
+            return analisi.model_dump_json(indent=2)

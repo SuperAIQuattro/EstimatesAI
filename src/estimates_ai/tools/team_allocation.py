@@ -44,4 +44,10 @@ def team_allocation(query: str) -> str:
                 latency = time.perf_counter() - t0
                 set_exception(span, e, latency)
                 raise
-            return result.structured_data[0].model_dump_json(indent=2)
+            analisi = result.structured_data[0]
+            try:
+                import streamlit as st
+                st.session_state["team_name"] = analisi.name
+            except Exception:
+                pass
+            return analisi.model_dump_json(indent=2)

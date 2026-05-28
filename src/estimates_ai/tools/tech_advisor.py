@@ -57,4 +57,9 @@ def tech_advisor(query: str) -> str:
                 raise
 
             analisi = result.structured_data[0]
+            try:
+                import streamlit as st
+                st.session_state["tech_summary"] = analisi.summary
+            except Exception:
+                pass
             return analisi.model_dump_json(indent=2)

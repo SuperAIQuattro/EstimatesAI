@@ -31,6 +31,24 @@ if "token_output" not in st.session_state:
 if "cost" not in st.session_state:
     st.session_state["cost"] = 0.0
 
+if "n_activities" not in st.session_state:
+    st.session_state["n_activities"] = ""
+
+if "total_hours" not in st.session_state:
+    st.session_state["total_hours"] = 0.0
+
+if "risk_level" not in st.session_state:
+    st.session_state["risk_level"] = ""
+
+if "team_name" not in st.session_state:
+    st.session_state["team_name"] = ""
+
+if "overall_risk" not in st.session_state:
+    st.session_state["overall_risk"] = ""
+
+if "tech_summary" not in st.session_state:
+    st.session_state["tech_summary"] = ""
+
 if "system" not in st.session_state:
     st.session_state["system"] = (
         "Sei il team leader di un team di sviluppo software. "
