@@ -54,7 +54,7 @@ def render_sidebar() -> tuple[str, float]:
         with col2:
             _render_card("Token", str(st.session_state["token_total"]))
 
-        _render_card("Costo Token Utilizzati", f"€ {st.session_state['cost']:.2f}")
+        _render_card("Costo Token Utilizzati", f"€ {st.session_state['cost']:.6f}")
 
         st.divider()
 
