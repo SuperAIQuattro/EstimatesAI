@@ -8,6 +8,7 @@ import streamlit as st
 from datapizza.memory import Memory
 from components.chat import render_chat
 from components.sidebar import render_sidebar
+from estimates_ai.observability.metrics import initialize_observability
 
 
 st.set_page_config(page_title="ESTIMATES AI", page_icon="🗃️", layout="centered")
@@ -40,6 +41,12 @@ if "system" not in st.session_state:
         "scomporre il progetto in attività, stimare il carico di lavoro, allocare il team, "
         "analizzare i rischi e valutare lo stack tecnologico."
     )
+
+if "observability_initialized" not in st.session_state:
+    metrics = initialize_observability()
+    st.session_state.update(metrics)
+    st.session_state["observability_initialized"] = True
+    print("✅ OpenTelemetry e Prometheus inizializzati")
 
 
 selected_model, temperature = render_sidebar()

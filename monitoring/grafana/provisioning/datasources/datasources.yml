@@ -6,7 +6,7 @@ datasources:
   - name: Tempo
     type: tempo
     access: proxy
-    url: http://tempo:3200
+    url: http://localhost:3200
     uid: tempo
     isDefault: false
     jsonData:
@@ -29,7 +29,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://prometheus:9090
+    url: http://localhost:9090
     uid: prometheus
     isDefault: true
     jsonData:
