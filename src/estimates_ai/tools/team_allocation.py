@@ -53,9 +53,6 @@ def team_allocation(estimated_task: EstimationResult) -> Team:
                 prompt_tokens = result.usage.prompt_tokens
                 completion_tokens = result.usage.completion_tokens
 
-                TOTAL_PROMPT_TOKENS += prompt_tokens
-                TOTAL_COMPLETION_TOKENS += completion_tokens
-
                 set_attributes_and_status(span, result, latency, prompt_tokens, completion_tokens)
 
             except Exception as e:
