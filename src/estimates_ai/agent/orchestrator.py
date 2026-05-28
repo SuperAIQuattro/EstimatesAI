@@ -15,5 +15,5 @@ def build_estimates_agent(model: str, temperature: float, system_prompt: str) ->
         name="estimates_agent",
         client=client,
         system_prompt=system_prompt,
-        tools=[],
+        tools=TOOLS,
     )
