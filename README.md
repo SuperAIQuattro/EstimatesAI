@@ -128,7 +128,6 @@ flowchart TD
 Coordinates the entire workflow:
 - tool execution;
 - memory retrieval;
-- estimation pipelines;
 - tracing and observability.
 
 ### Tool Engine
